@@ -1,0 +1,20 @@
+<html>
+<body>
+    <div>
+        Temperature difference is <label id="temperature"></label> °C
+    </div>
+
+    <script>
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+                var jsonResponse = JSON.parse(xhr.responseText);
+                document.getElementById("temperature").innerHTML = jsonResponse.differenceInCelsius;
+            }
+        }
+
+        xhr.open('GET', 'http://localhost:8080/api/diff/iddqd', true);
+        xhr.send(null);
+    </script>
+</body>
+</html>
