@@ -8,4 +8,6 @@ if (isNaN(port)) {
   port = 8080
 }
 
-export default { port }
+const sqliteDatabasePath: string = String(process.env.SQLITE_DATABASE_PATH)
+
+export default { port, sqliteDatabasePath }
