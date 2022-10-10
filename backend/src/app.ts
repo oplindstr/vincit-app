@@ -1,19 +1,13 @@
-import express, { Express, Request, Response } from 'express'
+import express, { Express } from 'express'
 import config from './config'
-import { getSummary } from './services/sensor_service'
+import sensorRouter from './routes/sensors'
+import indexRouter from './routes'
 
 const app: Express = express()
 const port: number = config.port
 
-app.get('/api/sensors/summary', (req: Request, res: Response) => {
-  getSummary()
-    .then((result) => {
-      res.send(result)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-})
+app.use('', indexRouter)
+app.use('/api/', sensorRouter)
 
 app.listen(port, () => {
   return console.log(`Express is listening at http://localhost:${port}`)
