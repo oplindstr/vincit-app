@@ -1,5 +1,5 @@
 import sqlite3 from 'sqlite3'
-import config from '../../config'
+import config from '../../config/constants'
 
 const db = new sqlite3.Database(config.sqliteDatabasePath, sqlite3.OPEN_READWRITE, (err) => {
   if (err != null) {

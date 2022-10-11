@@ -1,13 +1,13 @@
-import { Request, Response } from 'express'
-import { getSensorRepository } from '../config/sensor_repository_injection'
+import { Response } from 'express'
+import ExtendedRequest from '../interfaces/extended_request'
 import ISensorRepository from '../interfaces/sensor_repository'
 
-const index = (req: Request, res: Response): void => {
+const index = (req: ExtendedRequest, res: Response): void => {
   res.redirect('sensors/summary')
 }
 
-const summary = (req: Request, res: Response): void => {
-  const sensorRepository: ISensorRepository = getSensorRepository()
+const summary = (req: ExtendedRequest, res: Response): void => {
+  const sensorRepository: ISensorRepository = req.config.sensorRepository
 
   sensorRepository.getSummary()
     .then((result) => {
@@ -18,7 +18,7 @@ const summary = (req: Request, res: Response): void => {
     })
 }
 
-const diff = (req: Request, res: Response): void => {
+const diff = (req: ExtendedRequest, res: Response): void => {
   res.send('Not yet implemented')
 }
 
