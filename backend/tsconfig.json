@@ -1,4 +1,9 @@
 {
+  "exclude": ["./coverage", "./dist", "./test", "jest.config.js"],
+  "ts-node": {
+    "transpileOnly": true,
+    "files": true
+  },
   "compilerOptions": {
     "module": "commonjs",
     "esModuleInterop": true,
