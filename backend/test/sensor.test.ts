@@ -1,5 +1,5 @@
-import initializeApp from '../src/config/initialize_app'
-import SensorRepository from '../src/services/sensor_repository'
+import initializeApp from '../src/initialize_app'
+import SensorRepository from '../src/repositories/sensor_repository'
 import db from './db/iot_db_test'
 import { port, axiosInstance } from './test_config'
 
