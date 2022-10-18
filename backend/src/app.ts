@@ -1,6 +1,6 @@
 import appConstants from './config/constants'
 import getAppDependencyConfig from './config/app_dependency_config'
-import initializeApp from './config/initialize_app'
+import initializeApp from './initialize_app'
 
 const appDependencyConfig = getAppDependencyConfig()
 

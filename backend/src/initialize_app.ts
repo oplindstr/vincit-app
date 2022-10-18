@@ -1,8 +1,8 @@
 import express, { Express, Response, NextFunction } from 'express'
-import sensorRouter from '../routes/sensors'
-import indexRouter from '../routes'
-import IAppDependencyConfig from '../interfaces/app_dependency_config'
-import ExtendedRequest from '../interfaces/extended_request'
+import sensorRouter from './routes/sensors'
+import indexRouter from './routes'
+import IAppDependencyConfig from './interfaces/app_dependency_config'
+import ExtendedRequest from './interfaces/extended_request'
 
 const initializeApp = (appConfig: IAppDependencyConfig): Express => {
   const app: Express = express()
