@@ -13,10 +13,10 @@ const server = app.listen(port, () => {
 })
 
 server.on('connection', function (socket) {
-  socket.setTimeout(20 * 1000);
-});
+  socket.setTimeout(20 * 1000)
+})
 
 shutdownHandler(() => server.close(() => {
   console.log('Server closed')
-  process.exit(0);
+  process.exit(0)
 }))

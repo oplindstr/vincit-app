@@ -1,9 +1,8 @@
-const shutdownHandler = (clearFunction) => {
-  const handleClose = (signal) => {
+const shutdownHandler = (clearFunction): void => {
+  const handleClose = (signal: string): void => {
     console.log(`${signal} received: closing service`)
     clearFunction()
   }
-  
   process.on('SIGINT', handleClose)
   process.on('SIGTERM', handleClose)
 }
