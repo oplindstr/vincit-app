@@ -9,18 +9,18 @@ beforeAll(() => {
   const appDependencyConfig = {
     sensorRepository: new SensorRepository(db)
   }
-  
+
   const app = initializeApp(appDependencyConfig)
 
   server = app.listen(port)
-});
+})
 
 afterAll(() => {
+  db.close()
   server.close()
 })
 
-describe('Testing sensor data', () => {
-
+describe('Testing sensor controller', () => {
   describe('Testing sensor summary', () => {
     let result, firstObject, secondObject
 
@@ -34,6 +34,7 @@ describe('Testing sensor data', () => {
       expect(firstObject.id).toBeDefined()
       expect(firstObject.count).toBeDefined()
       expect(firstObject.avgTemp).toBeDefined()
+      expect(Object.keys(firstObject).length).toEqual(3)
     })
 
     test('the amount of data per sensor is correct', () => {
@@ -44,5 +45,4 @@ describe('Testing sensor data', () => {
       expect(secondObject.avgTemp).toEqual(18.32)
     })
   })
-
 })
