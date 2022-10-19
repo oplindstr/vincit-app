@@ -8,6 +8,6 @@ if (isNaN(port)) {
 
 const axiosInstance = axios.create({
   baseURL: `http://localhost:${port}/api/`
-});
+})
 
 export { port, axiosInstance }
