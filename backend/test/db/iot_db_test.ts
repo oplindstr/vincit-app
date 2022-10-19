@@ -18,8 +18,8 @@ const initializeData = (db): void => {
   // Insert data for testing
   sql = `Insert into datas (id, time, value) 
     values ("abba", null, 20), 
-    ("iddqd", null, 18), 
-    ("iddqd", null, 18.63)`
+    ("baab", null, 18), 
+    ("baab", null, 18.63)`
 
   db.run(sql, (err) => {
     if (err != null) {
