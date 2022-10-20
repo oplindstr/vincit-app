@@ -2,6 +2,7 @@ import db from './db/iot_db_test'
 import MockExternalSensorService from './mock/mock_external_sensor_service'
 import SensorRepository from '../src/repositories/sensor_repository'
 import SensorService from '../src/services/sensor_service/sensor_service'
+import LatestDataService from '../src/services/latest_data_service'
 
 let sensorService
 
@@ -10,7 +11,10 @@ beforeAll(() => {
 
   const externalSensorService = new MockExternalSensorService()
 
-  sensorService = new SensorService(sensorRepository, externalSensorService)
+  // Initialize in-memory latest data service (persist = false)
+  const latestDataService = new LatestDataService('', false)
+
+  sensorService = new SensorService(sensorRepository, externalSensorService, latestDataService)
 })
 
 afterAll(() => {
@@ -39,6 +43,16 @@ describe('Testing sensor service', () => {
     expect(Object.keys(data).length).toEqual(3)
   })
 
+  test('latest sensor data is saved correctly with the latest data service', () => {
+    sensorService.saveLatestData(data).then(() => {
+      sensorService.getLatestData(data.id).then((latestData) => {
+        expect(latestData.id).toEqual('iddqd')
+        expect(latestData.time).toEqual(1666192148137)
+        expect(latestData.value).toEqual(24.290440081297366)
+      })
+    })
+  })
+
   test('sensor data is saved successfully', async () => {
     await sensorService.saveData(data)
 
@@ -58,5 +72,9 @@ describe('Testing sensor service', () => {
         resolve(row)
       })
     })
+  })
+
+  test('whole service run is successful', async () => {
+    sensorService.runService()
   })
 })
