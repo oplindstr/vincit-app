@@ -16,8 +16,8 @@ class SensorService implements ISensorService {
     this.latestDataService = latestDataService
   }
 
-  fetchData = async (): Promise<ExternalSensorData> => {
-    const data = await this.externalSensorService.fetchData()
+  fetchData = async (id: string): Promise<ExternalSensorData> => {
+    const data = await this.externalSensorService.fetchData(id)
     return data
   }
 
@@ -44,7 +44,8 @@ class SensorService implements ISensorService {
   }
 
   runService = (): void => {
-    this.fetchData()
+    // Fetch only data for id = iddqd. This could be extended to fetch data for more ids.
+    this.fetchData('iddqd')
       .then((externalData: ExternalSensorData) => {
         const data: SensorData = this.convertData(externalData)
         this.saveLatestData(data)

@@ -9,7 +9,7 @@ const intervalMilliseconds = 1000
 
 const sensorRepository = new SensorRepository(db)
 
-const dataUrl = 'http://dummy-sensors.azurewebsites.net/api/sensor/iddqd'
+const dataUrl = 'http://dummy-sensors.azurewebsites.net/api'
 const externalSensorService = new ExternalSensorService(dataUrl)
 
 const latestDataService = new LatestDataService()
