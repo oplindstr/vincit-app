@@ -4,6 +4,6 @@ import shutdownHandler from '../../helpers/shutdown'
 
 const sensorService: ISensorService = getSensorService()
 
-const interval = setInterval(sensorService.runService, intervalMilliseconds)
+const interval = setInterval(sensorService.runDataTransfer, intervalMilliseconds)
 
 shutdownHandler(() => clearInterval(interval))

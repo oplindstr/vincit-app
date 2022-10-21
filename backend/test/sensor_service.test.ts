@@ -56,7 +56,7 @@ describe('Testing sensor service', () => {
     })
   })
 
-  test('whole service run is successful', async () => {
-    sensorService.runService()
+  test('whole data transfer run is successful', async () => {
+    sensorService.runDataTransfer()
   })
 })

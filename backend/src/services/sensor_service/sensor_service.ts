@@ -43,8 +43,8 @@ class SensorService implements ISensorService {
     await this.sensorRepository.save(data)
   }
 
-  runService = (): void => {
-    // Fetch only data for id = iddqd. This could be extended to fetch data for more ids.
+  runDataTransfer = (): void => {
+    // Fetch only data for id = iddqd. This could be extended to fetch data for more ids for example.
     this.fetchData('iddqd')
       .then((externalData: ExternalSensorData) => {
         const data: SensorData = this.convertData(externalData)

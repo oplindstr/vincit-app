@@ -6,7 +6,7 @@ interface ISensorService {
   convertData: (externalData: ExternalSensorData) => SensorData
   saveLatestData: (data: SensorData) => void
   saveData: (data: SensorData) => Promise<void>
-  runService: () => void
+  runDataTransfer: () => void
 }
 
 export default ISensorService
