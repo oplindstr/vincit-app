@@ -57,6 +57,19 @@ class SensorService implements ISensorService {
         console.log(err)
       })
   }
+
+  getTemperatureDifference = async (id: string): Promise<number> => {
+    const [currentWeatherData, latestSensorData] = await Promise.all([
+      this.externalSensorService.fetchCurrentWeatherData(),
+      this.getLatestData(id)
+    ])
+
+    if (currentWeatherData == null || latestSensorData == null) {
+      return -1
+    }
+
+    return Math.abs(currentWeatherData.temperature - latestSensorData.value)
+  }
 }
 
 export default SensorService

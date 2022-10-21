@@ -7,6 +7,7 @@ interface ISensorService {
   saveLatestData: (data: SensorData) => void
   saveData: (data: SensorData) => Promise<void>
   runDataTransfer: () => void
+  getTemperatureDifference: (id: string) => Promise<number>
 }
 
 export default ISensorService
