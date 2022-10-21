@@ -1,13 +1,13 @@
 import initializeApp from '../src/initialize_app'
-import SensorRepository from '../src/repositories/sensor_repository'
 import db from './db/iot_db_test'
-import { port, axiosInstance } from './test_config'
+import { port, axiosInstance, sensorRepository, sensorService, sensorId } from './test_config'
 
 let server
 
 beforeAll(() => {
   const appDependencyConfig = {
-    sensorRepository: new SensorRepository(db)
+    sensorRepository,
+    sensorService
   }
 
   const app = initializeApp(appDependencyConfig)
@@ -43,6 +43,32 @@ describe('Testing sensor controller', () => {
 
     test('the average temperature is calculated and rounded correctly', () => {
       expect(secondObject.avgTemp).toEqual(18.32)
+    })
+  })
+
+  describe('Testing temperature difference', () => {
+    let result, resultJson
+
+    beforeAll(async () => {
+      const externalData = await sensorService.fetchData(sensorId)
+      const data = sensorService.convertData(externalData)
+      await sensorService.saveLatestData(data)
+      result = await axiosInstance.get(`diff/${sensorId}`)
+      resultJson = result.data
+    })
+
+    test('The temperature difference returns data in the correct format', () => {
+      expect(resultJson.differenceInCelsius).toBeDefined()
+      expect(Object.keys(resultJson).length).toEqual(1)
+    })
+
+    test('The temperature difference returns the correct difference', () => {
+      expect(resultJson.differenceInCelsius).toEqual(19.450440081297366)
+    })
+
+    test('Difference returns "Not found" when data is not found on given sensor', async () => {
+      result = await axiosInstance.get('diff/iddq')
+      expect(result.data).toEqual('Not Found')
     })
   })
 })

@@ -5,6 +5,7 @@ import SensorData from '../models/sensor_data'
 class LatestDataService implements ILatestDataService {
   readonly storage
 
+  // persist = false option for testing with an in-memory storage
   constructor (path: string = './latest_data', persist: boolean = true) {
     this.storage = cache({
       base: path,

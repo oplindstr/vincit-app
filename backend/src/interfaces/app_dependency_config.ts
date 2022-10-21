@@ -3,7 +3,7 @@ import ISensorService from '../interfaces/sensor_service'
 
 interface IAppDependencyConfig {
   sensorRepository: ISensorRepository
-  sensorService?: ISensorService
+  sensorService: ISensorService
 }
 
 export default IAppDependencyConfig
