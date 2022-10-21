@@ -68,7 +68,10 @@ class SensorService implements ISensorService {
       return -1
     }
 
-    return Math.abs(currentWeatherData.temperature - latestSensorData.value)
+    const difference = Math.abs(currentWeatherData.temperature - latestSensorData.value)
+
+    // Round to 2 decimals
+    return Math.round(difference * 100) / 100
   }
 }
 

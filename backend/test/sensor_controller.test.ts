@@ -63,7 +63,7 @@ describe('Testing sensor controller', () => {
     })
 
     test('The temperature difference returns the correct difference', () => {
-      expect(resultJson.differenceInCelsius).toEqual(19.450440081297366)
+      expect(resultJson.differenceInCelsius).toEqual(19.45)
     })
 
     test('Difference returns "Not found" when data is not found on given sensor', async () => {
