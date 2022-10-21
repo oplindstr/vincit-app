@@ -12,6 +12,16 @@ const initializeApp = (appConfig: IAppDependencyConfig): Express => {
     next()
   }
 
+  /*
+  Uncomment this when testing the vincit-htmlapp -file. Replace origin if running the html -file in a server, or keep it null when just opening the file in a browser
+  const origin = 'null'
+
+  app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    next()
+  })
+  */
+
   app.use('', indexRouter)
   app.use('/api/', applyConfig, sensorRouter)
 
