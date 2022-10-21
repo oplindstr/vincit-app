@@ -1,21 +1,5 @@
 import db from './db/iot_db_test'
-import MockExternalSensorService from './mock/mock_external_sensor_service'
-import SensorRepository from '../src/repositories/sensor_repository'
-import SensorService from '../src/services/sensor_service/sensor_service'
-import LatestDataService from '../src/services/latest_data_service'
-
-let sensorService
-
-beforeAll(() => {
-  const sensorRepository = new SensorRepository(db)
-
-  const externalSensorService = new MockExternalSensorService()
-
-  // Initialize in-memory latest data service (persist = false)
-  const latestDataService = new LatestDataService('', false)
-
-  sensorService = new SensorService(sensorRepository, externalSensorService, latestDataService)
-})
+import { sensorService, sensorId } from './test_config'
 
 afterAll(() => {
   db.close()
@@ -25,7 +9,7 @@ describe('Testing sensor service', () => {
   let externalData, data
 
   beforeAll(async () => {
-    externalData = await sensorService.fetchData()
+    externalData = await sensorService.fetchData(sensorId)
     data = sensorService.convertData(externalData)
   })
 
@@ -43,14 +27,12 @@ describe('Testing sensor service', () => {
     expect(Object.keys(data).length).toEqual(3)
   })
 
-  test('latest sensor data is saved correctly with the latest data service', () => {
-    sensorService.saveLatestData(data).then(() => {
-      sensorService.getLatestData(data.id).then((latestData) => {
-        expect(latestData.id).toEqual('iddqd')
-        expect(latestData.time).toEqual(1666192148137)
-        expect(latestData.value).toEqual(24.290440081297366)
-      })
-    })
+  test('latest sensor data is saved correctly with the latest data service', async () => {
+    await sensorService.saveLatestData(data)
+    const latestData = await sensorService.getLatestData(data.id)
+    expect(latestData.id).toEqual('iddqd')
+    expect(latestData.time).toEqual(1666192148137)
+    expect(latestData.value).toEqual(24.290440081297366)
   })
 
   test('sensor data is saved successfully', async () => {
@@ -58,7 +40,7 @@ describe('Testing sensor service', () => {
 
     const sql = `SELECT *
       FROM datas
-      WHERE id  = "iddqd"`
+      WHERE id  = "${sensorId}"`
 
     await new Promise((resolve, reject) => {
       db.get(sql, (err, row) => {
