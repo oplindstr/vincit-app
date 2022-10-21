@@ -1,4 +1,4 @@
-import { queryWrapper } from '../helpers/sqlite'
+import { insertWrapper, selectWrapper } from '../helpers/sqlite'
 import { Database } from 'sqlite3'
 import ISensorRepository from '../interfaces/sensor_repository'
 import SensorData from '../models/sensor_data'
@@ -15,7 +15,7 @@ class SensorRepository implements ISensorRepository {
                   from datas
                   group by id`
 
-    const rows = await queryWrapper(this._db, sql)
+    const rows = await selectWrapper(this._db, sql)
 
     return { sensors: rows }
   }
@@ -23,14 +23,9 @@ class SensorRepository implements ISensorRepository {
   save = async (data: SensorData): Promise<any> => {
     const sql = 'Insert into datas (id, time, value) values (?, ?, ?)'
     const { id, time, value } = data
+    const insertData = [id, time, value]
 
-    this._db.run(sql, [id, time, value], (err) => {
-      if (err != null) {
-        console.log(err.message)
-        return
-      }
-      console.log('A row has been inserted')
-    })
+    await insertWrapper(this._db, sql, insertData)
   }
 }
 
