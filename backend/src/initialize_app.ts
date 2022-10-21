@@ -3,6 +3,7 @@ import sensorRouter from './routes/sensors'
 import indexRouter from './routes'
 import IAppDependencyConfig from './interfaces/app_dependency_config'
 import ExtendedRequest from './interfaces/extended_request'
+import helmet from 'helmet'
 
 const initializeApp = (appConfig: IAppDependencyConfig): Express => {
   const app: Express = express()
@@ -21,6 +22,8 @@ const initializeApp = (appConfig: IAppDependencyConfig): Express => {
     next()
   })
   */
+
+  app.use(helmet())
 
   app.use('', indexRouter)
   app.use('/api/', applyConfig, sensorRouter)
