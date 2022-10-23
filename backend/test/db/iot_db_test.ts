@@ -1,6 +1,9 @@
-import sqlite3 from 'sqlite3'
+import sqlite3, { Database } from 'sqlite3'
 
-const initializeData = (db): void => {
+/**
+ * This file is used to initialize an in-memory sqlite database for testing
+ */
+const initializeData = (db: Database): void => {
   // Create the datas table and insert data for testing
 
   let sql = `CREATE TABLE datas (

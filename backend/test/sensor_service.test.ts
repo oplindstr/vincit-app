@@ -1,6 +1,10 @@
 import db from './db/iot_db_test'
 import { sensorService, sensorId } from './test_config'
 
+/**
+ * Tests for the internal sensor data service.
+ */
+
 afterAll(() => {
   db.close()
 })

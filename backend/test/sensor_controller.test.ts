@@ -2,6 +2,9 @@ import initializeApp from '../src/initialize_app'
 import db from './db/iot_db_test'
 import { port, axiosInstance, sensorRepository, sensorService, sensorId } from './test_config'
 
+/**
+ * Test for sensor controller. The Express server is run normally, but with different dependencies
+ */
 let server
 
 beforeAll(() => {

@@ -3,8 +3,11 @@ import ExternalSensorData from '../models/external_sensor_data'
 import ExternalWeatherData from '../models/external_weather_data'
 import axios from 'axios'
 
+/**
+ * Class for the Service that fetches external sensor data from /api/sensor/{sensorId}
+ */
 class ExternalSensorService implements IExternalSensorService {
-  readonly apiUrl: string
+  private readonly apiUrl: string
 
   constructor (apiUrl: string) {
     this.apiUrl = apiUrl

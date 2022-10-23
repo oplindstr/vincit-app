@@ -5,10 +5,18 @@ import ExternalSensorData from '../../models/external_sensor_data'
 import IExternalSensorService from '../../interfaces/external_sensor_service'
 import ILatestDataService from '../../interfaces/latest_data_service'
 
+/**
+ * Sensor service that can:
+ * - Fetch external sensor data
+ * - Convert external data into the format accepted by the repository
+ * - Save and retrieve latest sensor data
+ * - Run all of the above at once for the continuously running service
+ * - Calculate temperature difference
+ */
 class SensorService implements ISensorService {
-  readonly sensorRepository: ISensorRepository
-  readonly externalSensorService: IExternalSensorService
-  readonly latestDataService: ILatestDataService
+  private readonly sensorRepository: ISensorRepository
+  private readonly externalSensorService: IExternalSensorService
+  private readonly latestDataService: ILatestDataService
 
   constructor (sensorRepo: ISensorRepository, externalSensorService: IExternalSensorService, latestDataService: ILatestDataService) {
     this.sensorRepository = sensorRepo
@@ -44,7 +52,7 @@ class SensorService implements ISensorService {
   }
 
   runDataTransfer = (): void => {
-    // Fetch only data for id = iddqd. This could be extended to fetch data for more ids for example.
+    // Fetch only data for id = iddqd for now. This could be extended to fetch data for more ids for example.
     this.fetchData('iddqd')
       .then((externalData: ExternalSensorData) => {
         const data: SensorData = this.convertData(externalData)

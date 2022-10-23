@@ -2,7 +2,11 @@ import IExternalSensorService from '../../src/interfaces/external_sensor_service
 import ExternalSensorData from '../../src/models/external_sensor_data'
 import ExternalWeatherData from '../../src/models/external_weather_data'
 
+/**
+ * This class mocks the services that fetch data from the external sensor api
+ */
 class MockExternalSensorService implements IExternalSensorService {
+  // api/sensor/{sensorId}
   fetchData = async (id: string): Promise<ExternalSensorData> => {
     const data: ExternalSensorData = {
       id: 'iddqd',
@@ -12,6 +16,7 @@ class MockExternalSensorService implements IExternalSensorService {
     return data
   }
 
+  // api/weather
   fetchCurrentWeatherData = async (): Promise<ExternalWeatherData> => {
     const data: ExternalWeatherData = {
       latitude: 60.192059,

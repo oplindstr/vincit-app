@@ -1,3 +1,6 @@
+/**
+ * Data format of weather data fetched from /api/weather
+ */
 interface ExternalWeatherData {
   latitude: number
   longitude: number
