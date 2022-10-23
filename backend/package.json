@@ -1,7 +1,7 @@
 {
-  "name": "backend",
+  "name": "sensor_data_application",
   "version": "1.0.0",
-  "description": "",
+  "description": "Application for providing sensor data using a local database and an external source",
   "main": "src/app.ts",
   "scripts": {
     "start": "ts-node-esm src/app.ts",
@@ -10,8 +10,11 @@
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q src/app.ts\"",
     "sensor_service": "ts-node-esm src/services/sensor_service/start_service.ts"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["vincit", "sensors", "temperature"],
+  "author": {
+    "name": "Olli-Pekka Lindström",
+    "email": "olli-pekkalindstrom@hotmail.com"
+  },
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.19.3",
@@ -38,6 +41,7 @@
     "express": "^4.17.1",
     "helmet": "^6.0.0",
     "persistent-cache": "^1.1.2",
-    "sqlite3": "^5.1.1"
+    "sqlite3": "^5.1.1",
+    "ts-node": "^10.9.1"
   }
 }
