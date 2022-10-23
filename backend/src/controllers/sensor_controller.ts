@@ -3,10 +3,6 @@ import ExtendedRequest from '../interfaces/extended_request'
 import ISensorRepository from '../interfaces/sensor_repository'
 import ISensorService from '../interfaces/sensor_service'
 
-const index = (req: ExtendedRequest, res: Response): void => {
-  res.redirect('sensors/summary')
-}
-
 const summary = (req: ExtendedRequest, res: Response): void => {
   const sensorRepository: ISensorRepository = req.config.sensorRepository
 
@@ -36,4 +32,4 @@ const diff = (req: ExtendedRequest, res: Response): void => {
     })
 }
 
-export default { index, summary, diff }
+export default { summary, diff }
