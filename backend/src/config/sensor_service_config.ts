@@ -1,16 +1,22 @@
 import ISensorService from '../interfaces/sensor_service'
-import SensorRepository from '../repositories/sensor_repository'
 import SensorService from '../services/sensor_service/sensor_service'
-import db from '../db/sqlite/iot_db'
 import ExternalSensorService from '../services/external_sensor_service'
 import LatestDataService from '../services/latest_data_service'
+import ISensorRepository from '../interfaces/sensor_repository'
+import { getSensorRepository } from './sensor_repository_config'
+import { externalSensorDataUrl } from './constants'
 
-const intervalMilliseconds = 1000
+/**
+ * This file is used to select the sensor service implementation that the application uses.
+ * The sensor service object itself is given three separate dependencies:
+ * - Sensor Repository, interface to the database.
+ * - Service that fetches the external sensor data.
+ * - Service that is used to store and retrieve the latest data for each sensor
+ */
 
-const sensorRepository = new SensorRepository(db)
+const sensorRepository: ISensorRepository = getSensorRepository()
 
-const dataUrl = 'http://dummy-sensors.azurewebsites.net/api'
-const externalSensorService = new ExternalSensorService(dataUrl)
+const externalSensorService = new ExternalSensorService(externalSensorDataUrl)
 
 const latestDataService = new LatestDataService()
 
@@ -20,4 +26,4 @@ const getSensorService = (): ISensorService => {
   return sensorService
 }
 
-export { getSensorService, intervalMilliseconds }
+export { getSensorService }
